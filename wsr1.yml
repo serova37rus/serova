@@ -1,0 +1,19 @@
+---
+- name: wsr
+  hosts: all
+  tasks:
+  - name: update 
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+  - name: install curl
+    apt: name=curl state=latest
+  - name: restart
+    service: name=ufw state=restarted
+  - name: ufw
+    service: name=ufw state=restarted
+  - name: docker
+    apt: name=docker state=latest
+  - name: enable UFW
+    service: name=ufw state=started
+  - name: reboot
+    command: /sbin/shutdown -r now
+  
